@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal Chat Viewer</title>
+<link rel="stylesheet" href="signal-export-viewer.css">
+</head>
+<body>
+
+<div id="upload-screen">
+  <h1>Signal Chat Viewer</h1>
+  <p class="sub">Load your export to browse chats with images inline. Everything stays local in your browser.</p>
+
+  <div id="one-click-section">
+    <button onclick="document.getElementById('fi-folder').click()" style="width:100%;padding:12px;font-size:15px;margin-bottom:8px;">Open export folder</button>
+    <input type="file" id="fi-folder" webkitdirectory multiple style="display:none">
+    <p style="font-size:12px;color:var(--text3);text-align:center;margin-bottom:16px;">Picks the whole folder at once — reads main.jsonl, chat-names.json, and images automatically.</p>
+    <div class="divider">or load files manually</div>
+  </div>
+
+  <div class="step">Step 1 — JSONL file</div>
+  <div class="drop-zone" id="dz-json">
+    <p id="dz-json-label">Drop <strong>main.jsonl</strong> here, or click to browse</p>
+    <button class="ghost" onclick="document.getElementById('fi-json').click()">Choose file</button>
+    <input type="file" id="fi-json" accept=".json,.jsonl,.txt" style="display:none">
+  </div>
+  <div class="divider">or paste JSON below</div>
+  <textarea id="paste-area" placeholder="Paste JSON lines here..."></textarea>
+
+  <div class="step">Step 2 — files/ folder <span class="optional-label">(optional — enables inline images)</span></div>
+  <div class="drop-zone" id="dz-files">
+    <p id="dz-files-label">Drop the <strong>files/</strong> folder here, or click to browse</p>
+    <button class="ghost" onclick="document.getElementById('fi-files').click()">Choose folder</button>
+    <input type="file" id="fi-files" webkitdirectory multiple style="display:none">
+  </div>
+
+  <div class="step">Step 3 — chat-names.json <span class="optional-label">(optional — labels chats by name)</span></div>
+  <div class="drop-zone" id="dz-names">
+    <p id="dz-names-label">Drop <strong>chat-names.json</strong> here, or click to browse</p>
+    <button class="ghost" onclick="document.getElementById('fi-names').click()">Choose file</button>
+    <input type="file" id="fi-names" accept=".json" style="display:none">
+  </div>
+
+  <div id="error-msg" class="error"></div>
+  <button onclick="doLoad()" style="width:100%;margin-top:16px;">Load chat</button>
+</div>
+
+<div id="app">
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <input type="text" id="chat-search" placeholder="Filter chats..." oninput="renderSidebar()">
+    </div>
+    <div id="chat-list"></div>
+    <div id="sidebar-footer">
+      <button class="ghost" style="width:100%;font-size:13px;" onclick="reset()">Load another file</button>
+    </div>
+  </div>
+  <div id="chat-panel">
+    <div class="toolbar">
+      <span id="chat-title" style="font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex-shrink:0;max-width:40%;"></span>
+      <input type="text" id="msg-search" placeholder="Search messages..." oninput="renderMessages()">
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="search-count" id="search-count"></div>
+    <div id="messages"><div class="empty-state">Select a chat</div></div>
+  </div>
+</div>
+
+<div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+
+<script src="signal-export-viewer.js"></script>
+</body>
+</html>
