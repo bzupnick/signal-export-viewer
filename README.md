@@ -1,6 +1,6 @@
 # Signal Export Viewer
 
-A single-file browser app for viewing [Signal](https://signal.org) chat exports. Everything runs locally — no data ever leaves your machine.
+A very simple browser app for viewing [Signal](https://signal.org) chat exports. Everything runs locally — no data ever leaves your machine.
 
 ## Usage
 
